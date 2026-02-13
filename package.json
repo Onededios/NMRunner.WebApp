@@ -1,0 +1,54 @@
+{
+	"name": "nmrunner-webapp",
+	"private": true,
+	"version": "0.0.0",
+	"type": "module",
+	"main": "dist-electron/main.js",
+	"scripts": {
+		"dev": "vite",
+		"build:app": "vue-tsc -b && vite build",
+		"build": "npm run build:app",
+		"dist:win": "npm run build:app && electron-builder --win --x64",
+		"preview": "vite preview",
+		"start": "electron ."
+	},
+	"build": {
+		"appId": "com.nmrunner.webapp",
+		"productName": "NMRunner",
+		"asar": true,
+		"directories": {
+			"output": "release"
+		},
+		"files": [
+			"dist/**",
+			"dist-electron/**",
+			"package.json"
+		],
+		"extraResources": [
+			{
+				"from": "public/sample.postman_collection.json",
+				"to": "sample.postman_collection.json"
+			}
+		],
+		"win": {
+			"target": "nsis",
+			"signingHashAlgorithms": []
+		}
+	},
+	"dependencies": {
+		"newman": "^6.2.2",
+		"vue": "^3.5.25"
+	},
+	"devDependencies": {
+		"@types/node": "^24.10.1",
+		"@vitejs/plugin-vue": "^6.0.2",
+		"@vue/tsconfig": "^0.8.1",
+		"electron": "^40.4.1",
+		"electron-builder": "^25.1.8",
+		"terser": "^5.46.0",
+		"typescript": "~5.9.3",
+		"vite": "^7.3.1",
+		"vite-plugin-electron": "^0.29.0",
+		"vue-tsc": "^3.1.5"
+	}
+}
